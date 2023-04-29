@@ -1,12 +1,36 @@
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+#include "globals.h"
 #include "Loader.h"
 #include "icons.h"
 #include "menu.h"
+#include <string>
+#include <codecvt>
+#include <locale>
 
-bool success = false;
+
+std::string convert_wchar_to_string(const wchar_t* wstr) {
+    // Create a wide string from the wchar_t*
+    std::wstring w(wstr);
+
+    // Create a converter object using the selected locale
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+
+    // Convert the wide string to a narrow string using the converter
+    std::string str = converter.to_bytes(w);
+
+    return str;
+}
 
 
 int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+    HW_PROFILE_INFO hwProfileInfo;
+    if (GetCurrentHwProfile(&hwProfileInfo)) {
+        globals::hwid = convert_wchar_to_string(hwProfileInfo.szHwProfileGuid);
+	}
+    else {
+        MessageBoxA(NULL, "Can't get HWID.", "Error", MB_OK | MB_ICONERROR);
+	}
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandleA(0), 0,0,0, 0, L"set to anything", 0 };
     RegisterClassEx(&wc);
     Window = CreateWindow(wc.lpszClassName, L"3r3n.3x3 L04D3R", WS_POPUP, 0, 0, 5, 5, 0, 0, wc.hInstance, 0);

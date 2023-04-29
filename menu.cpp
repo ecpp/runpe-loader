@@ -1,361 +1,7 @@
 #include "menu.h"
 #include "imguipp_v2.h"
-#include "Windows.h"
-
-char inputusername[128];
-char inputpassword[128];
-char inputkey[128];
-
-//void Menu::RenderLogin() {
-//	if (!globals::loggedIn) {
-//		ImGui::SetNextWindowSize(ImVec2(400, 250), ImGuiCond_Always);
-//		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.20f, 0.25f, 0.30f, 1.00f));
-//		ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.13f, 0.16f, 0.20f, 1.00f));
-//		ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, ImVec4(0.13f, 0.16f, 0.20f, 1.00f));
-//		ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.13f, 0.16f, 0.20f, 1.00f));
-//		ImGui::Begin("Login", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-//
-//		ImGui::Spacing();
-//
-//		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.16f, 0.20f, 0.24f, 1.00f));
-//		ImGui::PushStyleColor(ImGuiCol_Separator, ImVec4(0.13f, 0.16f, 0.20f, 1.00f));
-//		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.87f, 0.87f, 0.87f, 1.00f));
-//		float windowWidth = ImGui::GetWindowWidth();
-//		float itemWidth = 600.0f; // adjust this to the desired width of the input boxes
-//		float padding = (windowWidth - itemWidth) / 2.0f;
-//
-//		ImGui::SetCursorPosX(padding);
-//		ImGui::Text("Username");
-//		ImGui::SameLine();
-//		ImGui::SetCursorPosX(padding + ImGui::GetWindowWidth() - itemWidth);
-//		ImGui::InputText("##username", inputusername, 128);
-//		ImGui::Spacing();
-//		ImGui::SetCursorPosX(padding);
-//		ImGui::Text("Password");
-//		ImGui::SameLine();
-//		ImGui::SetCursorPosX(padding + ImGui::GetWindowWidth() - itemWidth);
-//		ImGui::InputText("##password", inputpassword, 128, ImGuiInputTextFlags_Password);
-//
-//		ImGui::PopStyleColor(3);
-//		ImGui::Spacing();
-//		if (ImGui::Button("Login", ImVec2(ImGui::GetContentRegionAvailWidth(), 30)))
-//		{
-//			// Perform login authentication here
-//			if (1==1)
-//			{
-//				globals::loggedIn = true;
-//				ImGui::CloseCurrentPopup();
-//			}
-//			else
-//			{
-//				// Show error message
-//				ImGui::OpenPopup("Login Error");
-//			}
-//		}
-//
-//		// Error message popup
-//		if (ImGui::BeginPopupModal("Login Error", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-//		{
-//			ImGui::Text("Invalid username or password");
-//			ImGui::Spacing();
-//
-//			if (ImGui::Button("OK", ImVec2(120, 0)))
-//			{
-//				ImGui::CloseCurrentPopup();
-//			}
-//
-//			ImGui::EndPopup();
-//		}
-//
-//		ImGui::End();
-//		ImGui::PopStyleColor(4);
-//	}
-//}
-
-bool show_login = true;
-bool show_register = false;
-ImVec2 window_size{ 600, 600 };
-
-
-
-//void Menu::RenderLogin() {
-//
-//	if (!globals::loggedIn && globals::active) {
-//		ImGui::SetNextWindowSize(window_size);
-//		ImGui::Begin("Test", &globals::active, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
-//		{
-//			ImGui::SetCursorPos(ImVec2(726, 5));
-//			if (ImGui::Selectable("X", false, ImGuiSelectableFlags_None)) {
-//				ImGui::OpenPopup("Confirm Close");
-//			}
-//
-//			if (ImGui::BeginPopupModal("Confirm Close", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-//				ImGui::Text("Are you sure you want to exit?");
-//				if (ImGui::Button("Yes", ImVec2(120, 0))) {
-//					ImGui::CloseCurrentPopup();
-//					globals::active = false;
-//					ExitProcess(0);
-//				}
-//				ImGui::SameLine();
-//				if (ImGui::Button("No", ImVec2(120, 0))) {
-//					ImGui::CloseCurrentPopup();
-//				}
-//				ImGui::EndPopup();
-//			}
-//
-//			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.054, 0.054, 0.054, 255));
-//			ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.082, 0.078, 0.078, 255));
-//			ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 3.f);
-//			{
-//				ImGui::SetCursorPos(ImVec2(222, 83));
-//				ImGui::BeginChild("##MainPanel", ImVec2(300, 276), true);
-//				{
-//					if (show_login)
-//					{
-//						ImGui::SetCursorPos(ImVec2(118, 20));
-//						ImGui::TextDisabled("Welcome Back");
-//
-//						ImGui::SetCursorPos(ImVec2(97, 35));
-//						ImGui::Text("Log into your account");
-//
-//						ImGui::PushItemWidth(260.f);
-//						{
-//							ImGui::SetCursorPos(ImVec2(22, 79));
-//							ImGui::TextDisabled("Username");
-//
-//							ImGui::SetCursorPos(ImVec2(20, 95));
-//							ImGui::InputText("##Username", inputusername, 128);
-//						}
-//						ImGui::PopItemWidth();
-//
-//						ImGui::PushItemWidth(260.f);
-//						{
-//							ImGui::SetCursorPos(ImVec2(22, 130));
-//							ImGui::TextDisabled("Password");
-//
-//
-//							ImGui::SetCursorPos(ImVec2(20, 146));
-//							ImGui::InputText("##Passowrd", inputpassword, 128);
-//						}
-//						ImGui::PopItemWidth();
-//
-//						ImGui::SetCursorPos(ImVec2(22, 190));
-//						ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 3.f);
-//						if (ImGui::Button("Login", ImVec2(260.f, 30.f)))
-//						{
-//							globals::loggedIn = true;
-//						}
-//						ImGui::PopStyleVar();
-//
-//						ImGui::SetCursorPos(ImVec2(22, 240));
-//						if (ImGui::Selectable("Register here.", false, ImGuiSelectableFlags_None)) {
-//							show_register = true;
-//							show_login = false;
-//						}
-//					}
-//
-//
-//					if (show_register)
-//					{
-//						ImGui::SetCursorPos(ImVec2(118, 20));
-//						ImGui::TextDisabled("Welcome Back");
-//
-//						ImGui::SetCursorPos(ImVec2(95, 35));
-//						ImGui::Text("Register For An Account");
-//
-//						ImGui::PushItemWidth(260.f);
-//						{
-//							ImGui::SetCursorPos(ImVec2(22, 79));
-//							ImGui::TextDisabled("Username");
-//
-//							ImGui::SetCursorPos(ImVec2(20, 95));
-//							ImGui::InputText("##Username", inputusername, 128);
-//						}
-//						ImGui::PopItemWidth();
-//
-//						ImGui::PushItemWidth(260.f);
-//						{
-//							ImGui::SetCursorPos(ImVec2(22, 130));
-//							ImGui::TextDisabled("Invite Key");
-//
-//							ImGui::SetCursorPos(ImVec2(20, 146));
-//							ImGui::InputText("##InviteKey", inputkey, 128);
-//						}
-//						ImGui::PopItemWidth();
-//
-//						ImGui::SetCursorPos(ImVec2(22, 190));
-//						ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 3.f);
-//						if (ImGui::Button("Register", ImVec2(260.f, 30.f)))
-//						{
-//							show_login = true;
-//							show_register = false;
-//						}
-//						ImGui::PopStyleVar();
-//
-//						ImGui::SetCursorPos(ImVec2(22, 240));
-//						ImGui::TextDisabled("Already have an account? Sign in now!");
-//					}
-//
-//				}
-//				ImGui::EndChild();
-//			}
-//			ImGui::PopStyleColor(2);
-//			ImGui::PopStyleVar(1);
-//
-//			ImGui::SetCursorPos(ImVec2(5, 445));
-//		}
-//		ImGui::End();
-//	}
-//	
-//}
-
-auto current_panel = 0;
-const float padding{ 10 };
-//void Menu::RenderLogin() {
-//	if (!globals::loggedIn && globals::active) {
-//		const float padding{ 10 };
-//
-//		ImGui::SetWindowPos(ImVec2((ImGui::GetIO().DisplaySize.x - ImGui::GetWindowSize().x) * 0.5f, (ImGui::GetIO().DisplaySize.y - ImGui::GetWindowSize().y) * 0.5f));
-//		ImGui::Begin("Login Window", &globals::active, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
-//		{
-//			/*ImGui::BeginChild("##TopPanel", ImVec2(window_size.x - padding * 20, window_size.y - padding * 20), false);
-//			{
-//				ImGui::SetCursorPos(ImVec2(padding, padding));
-//				ImGuiPP::CenterTextEx(ICON_FA_TIMES_CIRCLE, 205, 0, 0);
-//				if (ImGui::IsItemClicked()) {
-//					globals::active = false;
-//					ExitProcess(0);
-//				}
-//			}*/
-//			
-//
-//		
-//
-//			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.054f, 0.054f, 0.054f, 1.0f));
-//			ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.082f, 0.078f, 0.078f, 1.0f));
-//			ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 3.f);
-//			{
-//				ImGui::SetCursorPos(ImVec2(padding * 7, padding * 6));
-//				ImGui::BeginChild("##MainPanel", ImVec2(window_size.x - padding * 14, window_size.y - padding * 12), true);
-//				{
-//					switch (current_panel) {
-//					case 0:
-//					{
-//						ImGui::SetCursorPos(ImVec2(window_size.x / 3, padding * 3));
-//						ImGui::TextDisabled("Welcome Back");
-//
-//						ImGui::SetCursorPos(ImVec2(window_size.x / 3 - padding, padding * 5));
-//						ImGui::Text("Log into your account");
-//
-//						ImGui::PushItemWidth(window_size.x / 2);
-//						{
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 9));
-//							ImGui::Text("Username");
-//
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 11));
-//							ImGui::InputText("##Username", inputusername, sizeof(inputusername));
-//						}
-//
-//						ImGui::PushItemWidth(window_size.x / 2);
-//						{
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 15));
-//							ImGui::Text("Password");
-//
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 17));
-//							ImGui::InputText("##Password", inputpassword, sizeof(inputpassword), ImGuiInputTextFlags_Password);
-//						}
-//						
-//
-//						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 21));
-//
-//						
-//
-//						if (ImGui::Button("Login", ImVec2(window_size.x / 2, 30.f)))
-//						{
-//							if (strlen(inputusername) < 3 || strlen(inputpassword) < 3) {
-//								MessageBoxA(NULL, "Please enter a valid username and password.", "Error", MB_OK | MB_ICONERROR);
-//							}
-//							else {
-//								if (1==1) {
-//									globals::loggedIn = true;
-//									globals::active = false;
-//								}
-//								else {
-//									MessageBoxA(NULL, "Invalid username or password.", "Error", MB_OK | MB_ICONERROR);
-//								}
-//							}
-//						}
-//
-//					
-//
-//						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 25));
-//
-//						
-//
-//						if (ImGui::Button("Register", ImVec2(window_size.x / 2, 30.f)))
-//						{
-//							current_panel = 1;
-//						}
-//
-//
-//						break;
-//
-//					}
-//					case 1:
-//					{
-//
-//						ImGui::SetCursorPos(ImVec2(window_size.x / 3 - padding, padding * 5));
-//						ImGui::Text("Register For An Account");
-//						ImGui::Spacing();
-//						ImGui::PushItemWidth(window_size.x / 2);
-//						{
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 9));
-//							ImGui::TextDisabled("Username");
-//
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 11));
-//							ImGui::InputText("##Username", inputusername, 128);
-//						}
-//						ImGui::PopItemWidth();
-//						ImGui::Spacing();
-//						ImGui::PushItemWidth(260.f);
-//						{
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 15));
-//							ImGui::TextDisabled("Password");
-//
-//							ImGui::SetCursorPos(ImVec2(padding * 2, padding * 17));
-//							ImGui::InputText("##Password", inputpassword, 128);
-//						}
-//						ImGui::PopItemWidth();
-//
-//						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 21));
-//						ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 3.f);
-//						if (ImGui::Button("Register", ImVec2(260.f, 30.f)))
-//						{
-//							current_panel = 0;
-//						}
-//						ImGui::PopStyleVar();
-//						ImGui::Spacing();
-//						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 25));
-//						if (ImGui::Selectable("Already have an account? Login.", false, ImGuiSelectableFlags_None)) {
-//							current_panel = 0;
-//						}
-//					}
-//
-//
-//					}
-//				}
-//				ImGui::EndChild();
-//			}
-//
-//			ImGui::SetCursorPos(ImVec2(5, 445));
-//
-//		}
-//
-//		ImGui::End();
-//
-//	}
-//
-//}
+#include "globals.h"
+#include <shellapi.h>
 
 void Menu::Render()
 {
@@ -437,14 +83,14 @@ void Menu::Render()
 					break;
 
 				case 2:
-					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5, 5));
+					/*ImGui::PushStyleVar(ImGuiStyleVar_Frameglobals::padding, ImVec2(5, 5));
 					ImGui::Checkbox("Safe Injection", &G->SafeInjection);
 					HELPMARKER("Safe Injection Will Make Sure Everything injected is timed correctly.");
 					ImGui::Checkbox("Block reports", &G->Blockreports);
 					HELPMARKER("Block reports will block any reports of your game crashing to the developers.");
 					ImGui::Checkbox("Automatic Injection", &G->AutoInject);
 					HELPMARKER("Automatic Injection will automatically wait for your game to load then inject.");
-					ImGui::PopStyleVar();
+					ImGui::PopStyleVar();*/
 					break;
 				}
 			}
@@ -479,8 +125,8 @@ void Menu::Render()
 			ImGui::BeginChild("##RightSide", ImVec2(ImGuiPP::GetX(), ImGuiPP::GetY()), TRUE);
 			ImGui::PopStyleColor();
 			{
-				switch (current_panel) {
-				case 0:
+				switch (globals::menuTab) {
+				case 3:
 				{
 					ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize("Welcome Back").x) / 2);
 					ImGui::TextDisabled("Welcome Back");
@@ -488,32 +134,32 @@ void Menu::Render()
 					ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize("Log into your account").x) / 2);
 					ImGui::Text("Log into your account");
 
-					ImGui::PushItemWidth(window_size.x / 2);
+					ImGui::PushItemWidth(globals::window_size.x / 2);
 					{
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 9));
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 9));
 						ImGui::Text("Username");
 
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 11));
-						ImGui::InputText("##Username", inputusername, sizeof(inputusername));
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 11));
+						ImGui::InputText("##Username", globals::inputusername, sizeof(globals::inputusername));
 					}
 
-					ImGui::PushItemWidth(window_size.x / 2);
+					ImGui::PushItemWidth(globals::window_size.x / 2);
 					{
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 15));
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 15));
 						ImGui::Text("Password");
 
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 17));
-						ImGui::InputText("##Password", inputpassword, sizeof(inputpassword), ImGuiInputTextFlags_Password);
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 17));
+						ImGui::InputText("##Password", globals::inputpassword, sizeof(globals::inputpassword), ImGuiInputTextFlags_Password);
 					}
 
 
-					ImGui::SetCursorPos(ImVec2(padding * 2, padding * 21));
+					ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 21));
 
 
 
-					if (ImGui::Button("Login", ImVec2(window_size.x / 2, 30.f)))
+					if (ImGui::Button("Login", ImVec2(globals::window_size.x / 2, 30.f)))
 					{
-						if (strlen(inputusername) < 3 || strlen(inputpassword) < 3) {
+						if (strlen(globals::inputusername) < 3 || strlen(globals::inputpassword) < 3) {
 							MessageBoxA(NULL, "Please enter a valid username and password.", "Error", MB_OK | MB_ICONERROR);
 						}
 						else {
@@ -529,53 +175,68 @@ void Menu::Render()
 
 
 
-					ImGui::SetCursorPos(ImVec2(padding * 2, padding * 25));
+					ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 25));
 
 
 
-					if (ImGui::Button("Register", ImVec2(window_size.x / 2, 30.f)))
+					if (ImGui::Button("Register", ImVec2(globals::window_size.x / 2, 30.f)))
 					{
-						current_panel = 1;
+						globals::menuTab = 4;
+						
 					}
 
 
 					break;
 
 				}
-				case 1:
+				case 4:
 				{
 					ImGui::Spacing();
 					ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize("Register For An Account").x) / 2);
 					ImGui::Text("Register For An Account");
 					ImGui::Spacing();
-					ImGui::PushItemWidth(window_size.x / 2);
+					ImGui::PushItemWidth(globals::window_size.x / 2);
 					{
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 9));
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 9));
 						ImGui::Text("Username");
 
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 11));
-						ImGui::InputText("##Username", inputusername, sizeof(inputusername));
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 11));
+						ImGui::InputText("##Username", globals::inputusername, sizeof(globals::inputusername));
 					}
 
-					ImGui::PushItemWidth(window_size.x / 2);
 					{
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 15));
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 15));
+						ImGui::Text("Email");
+
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 17));
+						ImGui::InputText("##Email", globals::inputmail, sizeof(globals::inputmail));
+					}
+
+					
+					{
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 21));
 						ImGui::Text("Password");
 
-						ImGui::SetCursorPos(ImVec2(padding * 2, padding * 17));
-						ImGui::InputText("##Password", inputpassword, sizeof(inputpassword), ImGuiInputTextFlags_Password);
+						ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 23));
+						ImGui::InputText("##Password", globals::inputpassword, sizeof(globals::inputpassword), ImGuiInputTextFlags_Password);
 					}
 					ImGui::PopItemWidth();
 
-					ImGui::SetCursorPos(ImVec2(padding * 2, padding * 21));
-					if (ImGui::Button("Register", ImVec2(window_size.x / 2, 30.f)))
+					ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 27));
+					if (ImGui::Button("Register", ImVec2(globals::window_size.x / 2, 30.f)))
 					{
-						current_panel = 0;
+						if (globals::api.signup(globals::inputusername, globals::inputpassword, globals::inputmail, globals::hwid)) {
+							MessageBoxA(NULL, "Account created successfully.", "Success", MB_OK | MB_ICONINFORMATION);
+							globals::menuTab = 3;
+						}
+						else {
+							MessageBoxA(NULL, "Account creation failed.", "Error", MB_OK | MB_ICONERROR);
+						}
 					}
 					ImGui::Spacing();
-					ImGui::SetCursorPos(ImVec2(padding * 2, padding * 25));
+					ImGui::SetCursorPos(ImVec2(globals::padding * 2, globals::padding * 31));
 					if (ImGui::Selectable("Already have an account? Login.", false, ImGuiSelectableFlags_None)) {
-						current_panel = 0;
+						globals::menuTab = 3;
 					}
 				}
 

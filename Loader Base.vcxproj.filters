@@ -46,6 +46,9 @@
     <ClCompile Include="loadGames.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -94,5 +97,8 @@
       <Filter>Menu</Filter>
     </ClInclude>
     <ClInclude Include="loadGames.h" />
+    <ClInclude Include="api.h" />
+    <ClInclude Include="httplib.h" />
+    <ClInclude Include="json.hpp" />
   </ItemGroup>
 </Project>
