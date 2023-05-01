@@ -11,6 +11,6 @@ class API {
 public:
 	API() : client("127.0.0.1", 8000) {}
 	bool signup(std::string username, std::string password, std::string email, std::string hwid);
-	void login(std::string username, std::string password, std::string hwid);
+	int login(std::string username, std::string password, std::string hwid);
 	bool testApi();
 };

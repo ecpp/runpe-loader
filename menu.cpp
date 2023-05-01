@@ -55,6 +55,16 @@ void Menu::Render()
 					ImGui::NewLine();
 					ImGui::TextColored(ImColor(220, 190, 0, 255), "Version: 1.0");
 					ImGui::Text("Status: Undetected");
+					ImGui::NewLine();
+					{
+						ImGui::Text("Activate License:");
+						ImGui::PushItemWidth(ImGuiPP::GetX());
+						ImGui::InputText("##License", globals::inputkey, sizeof(globals::inputkey));
+					}
+					if (ImGui::Button("Activate", ImVec2(ImGuiPP::GetX(), 33)))
+					{
+						//do something
+					}
 					break;
 
 				case 1:
@@ -163,12 +173,13 @@ void Menu::Render()
 							MessageBoxA(NULL, "Please enter a valid username and password.", "Error", MB_OK | MB_ICONERROR);
 						}
 						else {
-							if (1 == 1) {
+							if (globals::api.login(globals::inputusername, globals::inputpassword, globals::hwid)==0) {
+								globals::menuTab = 0;
 								globals::loggedIn = true;
 								globals::active = false;
 							}
 							else {
-								MessageBoxA(NULL, "Invalid username or password.", "Error", MB_OK | MB_ICONERROR);
+								MessageBoxA(NULL, "Invalid credentials or HWID.", "Error", MB_OK | MB_ICONERROR);
 							}
 						}
 					}
