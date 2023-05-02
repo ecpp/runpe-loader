@@ -10,6 +10,10 @@ namespace globals {
 	inline char inputpassword[128];
 	inline char inputkey[128];
 
+	inline int userId = -1;
+	inline std::string userToken = "";
+	inline std::vector<std::string> products;
+
 
 	inline ImVec2 window_size{ 600, 600 };
 	inline const float padding{ 10 };

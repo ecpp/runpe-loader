@@ -69,24 +69,24 @@ void Menu::Render()
 
 				case 1:
 					ImGui::ListBoxHeader("##GamesChoice", ImVec2(ImGuiPP::GetX(), ImGuiPP::GetY() - 36.5));
-					for (int i = 0; i < globals::games.size(); i++)
+					for (int i = 0; i < globals::products.size(); i++)
 					{
 						const bool selected = (globals::gameIndex == i);
-						if (ImGui::Selectable(globals::games[i].c_str(), selected))
+						if (ImGui::Selectable(globals::products[i].c_str(), selected))
 							globals::gameIndex = i;
 						if (selected)
 							ImGui::SetItemDefaultFocus();
 					}
 					ImGui::ListBoxFooter();
 
-					if (ImGui::Button(("Launch " + globals::games[globals::gameIndex]).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
+					if (ImGui::Button(("Launch " + globals::products[globals::gameIndex]).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
 					{
 						ShowWindow(GetActiveWindow(), SW_HIDE);
 						Sleep(2500);
 						AllocConsole();
 						freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 						ShowWindow(GetConsoleWindow(), SW_SHOW);
-						printf("Injecting into %s...\n\n", globals::games[globals::gameIndex]);
+						printf("Injecting into %s...\n\n", globals::products[globals::gameIndex]);
 						Sleep(1500);
 						// inject code :) i will add soon :)
 					}
@@ -174,6 +174,7 @@ void Menu::Render()
 						}
 						else {
 							if (globals::api.login(globals::inputusername, globals::inputpassword, globals::hwid)==0) {
+								globals::api.getUserInfo();
 								globals::menuTab = 0;
 								globals::loggedIn = true;
 								globals::active = false;

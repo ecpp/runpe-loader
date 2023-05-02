@@ -1,5 +1,6 @@
 #include "api.h"
 #include "json.hpp"
+#include "globals.h"
 
 
 
@@ -30,7 +31,12 @@ int API::login(std::string username, std::string password, std::string hwid) {
     else if (response->status == 401) {
 		return 2;
 	}
-    return 0;
+    //return Response({'token': token.key, 'user_id': user.id})
+	j = nlohmann::json::parse(response->body);
+	globals::userToken = j["token"];
+    globals::userId = j["user_id"];
+	return 0;
+	
 }
 
 bool API::testApi()
@@ -42,4 +48,31 @@ bool API::testApi()
     }
     return false;
 }
+
+void API::getUserInfo() {
+    std::string url = "/user/" + std::to_string(globals::userId);
+    //set token as header
+    httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
+    auto response = client.Get(url.c_str(), headers);
+    if (response->status == 401) {
+		std::cout << "Unauthorized" << std::endl;
+		return;
+	}
+    nlohmann::json j;
+    j = nlohmann::json::parse(response->body);
     
+    for (auto& element : j["products"]) {
+		std::string name = element["name"];
+		std::string expiration_date = element["expiration_date"];
+		std::string product = name + " " + expiration_date;
+		globals::products.push_back(product);
+	}
+    for (auto& element : globals::products) {
+		std::cout << element << std::endl;
+	}
+    
+}
+
+void API::validateProduct() {
+
+}

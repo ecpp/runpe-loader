@@ -13,4 +13,6 @@ public:
 	bool signup(std::string username, std::string password, std::string email, std::string hwid);
 	int login(std::string username, std::string password, std::string hwid);
 	bool testApi();
+	void getUserInfo();
+	void validateProduct();
 };
