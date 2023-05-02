@@ -181,6 +181,7 @@
     <ClInclude Include="Loader.h" />
     <ClInclude Include="loadGames.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="product.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

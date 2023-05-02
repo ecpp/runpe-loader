@@ -1,5 +1,6 @@
 #pragma once
 #include "includes.h"
+#include "product.h"
 
 
 namespace globals {
@@ -9,10 +10,10 @@ namespace globals {
 	inline char inputmail[128];
 	inline char inputpassword[128];
 	inline char inputkey[128];
-
+	
 	inline int userId = -1;
 	inline std::string userToken = "";
-	inline std::vector<std::string> products;
+	inline std::vector<Product> products;
 
 
 	inline ImVec2 window_size{ 600, 600 };

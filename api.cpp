@@ -1,6 +1,7 @@
 #include "api.h"
 #include "json.hpp"
 #include "globals.h"
+#include "product.h"
 
 
 
@@ -49,27 +50,26 @@ bool API::testApi()
     return false;
 }
 
-void API::getUserInfo() {
+bool API::getUserInfo() {
     std::string url = "/user/" + std::to_string(globals::userId);
     //set token as header
     httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
     auto response = client.Get(url.c_str(), headers);
-    if (response->status == 401) {
-		std::cout << "Unauthorized" << std::endl;
-		return;
-	}
+    if (response->status != 200) {
+        return false;
+    }
     nlohmann::json j;
     j = nlohmann::json::parse(response->body);
-    
+
     for (auto& element : j["products"]) {
-		std::string name = element["name"];
-		std::string expiration_date = element["expiration_date"];
-		std::string product = name + " " + expiration_date;
-		globals::products.push_back(product);
-	}
-    for (auto& element : globals::products) {
-		std::cout << element << std::endl;
-	}
+        std::string name = element["name"];
+        std::string expiration_date = element["expiration_date"];
+        int id = element["id"];
+        Product product(name, id, expiration_date);
+        globals::products.push_back(product);
+    }
+    
+    return true;
     
 }
 

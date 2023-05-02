@@ -2,6 +2,20 @@
 #include "imguipp_v2.h"
 #include "globals.h"
 #include <shellapi.h>
+#include <thread>
+
+void getUserInfoAsync() {
+	std::this_thread::sleep_for(std::chrono::minutes(10));
+	if (!globals::api.getUserInfo()) {
+		//create message box
+		MessageBoxA(NULL, "Failed to get user info", "Error", MB_OK);
+		//close program
+		globals::active = false;
+		globals::loggedIn = false;
+		ExitProcess(0);
+
+	}
+}
 
 void Menu::Render()
 {
@@ -72,14 +86,14 @@ void Menu::Render()
 					for (int i = 0; i < globals::products.size(); i++)
 					{
 						const bool selected = (globals::gameIndex == i);
-						if (ImGui::Selectable(globals::products[i].c_str(), selected))
+						if (ImGui::Selectable((globals::products[i].getName() + " Valid Until " + globals::products[globals::gameIndex].getExpirationDate()).c_str(), selected))
 							globals::gameIndex = i;
 						if (selected)
 							ImGui::SetItemDefaultFocus();
 					}
 					ImGui::ListBoxFooter();
 
-					if (ImGui::Button(("Launch " + globals::products[globals::gameIndex]).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
+					if (ImGui::Button(("Launch " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
 					{
 						ShowWindow(GetActiveWindow(), SW_HIDE);
 						Sleep(2500);
@@ -173,11 +187,19 @@ void Menu::Render()
 							MessageBoxA(NULL, "Please enter a valid username and password.", "Error", MB_OK | MB_ICONERROR);
 						}
 						else {
+
 							if (globals::api.login(globals::inputusername, globals::inputpassword, globals::hwid)==0) {
-								globals::api.getUserInfo();
-								globals::menuTab = 0;
-								globals::loggedIn = true;
-								globals::active = false;
+								if (globals::api.getUserInfo()) {
+									//create thread for updating user info
+									std::thread(getUserInfoAsync).detach();
+									globals::menuTab = 0;
+									globals::loggedIn = true;
+									globals::active = false;
+								}
+								else {
+									MessageBoxA(NULL, "Failed to get user info.", "Error", MB_OK | MB_ICONERROR);
+								}
+								
 							}
 							else {
 								MessageBoxA(NULL, "Invalid credentials or HWID.", "Error", MB_OK | MB_ICONERROR);

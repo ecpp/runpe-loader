@@ -100,5 +100,6 @@
     <ClInclude Include="api.h" />
     <ClInclude Include="httplib.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="product.h" />
   </ItemGroup>
 </Project>
