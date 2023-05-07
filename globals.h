@@ -19,7 +19,6 @@ namespace globals {
 	inline ImVec2 window_size{ 600, 600 };
 	inline const float padding{ 10 };
 
-
 	inline API api;
 	inline std::vector<std::string> games = {"CSGO"};
 	inline std::string hwid = "";
