@@ -15,6 +15,14 @@ void getUserInfoAsync() {
 		ExitProcess(0);
 
 	}
+	if (!globals::api.checkLoaderVersion()) {
+		//create message box
+		MessageBoxA(NULL, "Please update your loader", "Error", MB_OK);
+		//close program
+		globals::active = false;
+		globals::loggedIn = false;
+		ExitProcess(0);
+	}
 }
 
 void Menu::Render()
@@ -67,43 +75,74 @@ void Menu::Render()
 				case 0:
 					ImGuiPP::CenterText("3r3n.3x3 L04D3R", 1, TRUE);
 					ImGui::NewLine();
-					ImGui::TextColored(ImColor(220, 190, 0, 255), "Version: 1.0");
-					ImGui::Text("Status: Undetected");
+					ImGui::TextColored(ImColor(220, 190, 0, 255), ("Version: " + globals::version).c_str());
+					ImGui::Text("put discord address here");
 					ImGui::NewLine();
-					{
-						ImGui::Text("Activate License:");
-						ImGui::PushItemWidth(ImGuiPP::GetX());
-						ImGui::InputText("##License", globals::inputkey, sizeof(globals::inputkey));
-					}
-					if (ImGui::Button("Activate", ImVec2(ImGuiPP::GetX(), 33)))
-					{
-						//do something
-					}
+					//{
+					//	ImGui::Text("Activate License:");
+					//	ImGui::PushItemWidth(ImGuiPP::GetX());
+					//	ImGui::InputText("##License", globals::inputkey, sizeof(globals::inputkey));
+					//}
+					//if (ImGui::Button("Activate", ImVec2(ImGuiPP::GetX(), 33)))
+					//{
+					//	//do something
+					//}
 					break;
 
 				case 1:
-					ImGui::ListBoxHeader("##GamesChoice", ImVec2(ImGuiPP::GetX(), ImGuiPP::GetY() - 36.5));
-					for (int i = 0; i < globals::products.size(); i++)
-					{
-						const bool selected = (globals::gameIndex == i);
-						if (ImGui::Selectable((globals::products[i].getName() + " Valid Until " + globals::products[globals::gameIndex].getExpirationDate()).c_str(), selected))
-							globals::gameIndex = i;
-						if (selected)
-							ImGui::SetItemDefaultFocus();
-					}
-					ImGui::ListBoxFooter();
+					
+					if (globals::products.size() > 0) {
+						ImGui::ListBoxHeader("##GamesChoice", ImVec2(ImGuiPP::GetX(), ImGuiPP::GetY() - 36.5));
+						ImGui::Columns(1, NULL, false);
+						for (int i = 0; i < globals::products.size(); i++)
+						{
+							//create 2x2 grid
+							if (i % 2 == 0) {
+								ImGui::Separator();
+							}
+							//display name
+							ImGui::Text(("Product: " + globals::products[globals::gameIndex].getName()).c_str());
+							//display status
+							ImGui::Text(("Status: " + globals::products[globals::gameIndex].getStatus()).c_str());
+							ImGui::Text(("Valid Until: " + globals::products[globals::gameIndex].getExpirationDate()).c_str());
+							//display button
+							if (ImGui::Button(("Launch " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
+							{
+								if (globals::api.validateProduct(globals::products[globals::gameIndex].getId())) {
+									ShowWindow(GetActiveWindow(), SW_HIDE);
+									Sleep(2500);
+									AllocConsole();
+									freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+									ShowWindow(GetConsoleWindow(), SW_SHOW);
+									printf("Injecting into %s...\n\n", globals::products[globals::gameIndex]);
+									Sleep(1500);
 
-					if (ImGui::Button(("Launch " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
-					{
-						ShowWindow(GetActiveWindow(), SW_HIDE);
-						Sleep(2500);
-						AllocConsole();
-						freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-						ShowWindow(GetConsoleWindow(), SW_SHOW);
-						printf("Injecting into %s...\n\n", globals::products[globals::gameIndex]);
-						Sleep(1500);
-						// inject code :) i will add soon :)
+								}
+								else {
+									//create message box
+									MessageBoxA(NULL, "Failed to validate product", "Error", MB_OK);
+									//close program
+									globals::active = false;
+									globals::loggedIn = false;
+									ExitProcess(0);
+								}
+
+							}
+
+							ImGui::NextColumn();
+
+
+						}
+						ImGui::Columns(1);
+						ImGui::Separator();
+						ImGui::ListBoxFooter();
+
+						
 					}
+					else{
+						ImGui::Text("No Active License Found");
+					}
+					
 					break;
 
 				case 2:

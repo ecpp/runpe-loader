@@ -51,6 +51,10 @@ bool API::testApi()
 }
 
 bool API::getUserInfo() {
+    AllocConsole();
+    freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+    ShowWindow(GetConsoleWindow(), SW_SHOW);
+
     std::string url = "/user/" + std::to_string(globals::userId);
     //set token as header
     httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
@@ -58,14 +62,15 @@ bool API::getUserInfo() {
     if (response->status != 200) {
         return false;
     }
+    std::cout << response->body << std::endl;
     nlohmann::json j;
     j = nlohmann::json::parse(response->body);
-
+    //
     for (auto& element : j["products"]) {
-        std::string name = element["name"];
+        int hack_id = element["hack_id"];
         std::string expiration_date = element["expiration_date"];
-        int id = element["id"];
-        Product product(name, id, expiration_date);
+        std::string status = element["hack"]["status"];
+        Product product(hack_id, expiration_date, status);
         globals::products.push_back(product);
     }
     
@@ -73,6 +78,28 @@ bool API::getUserInfo() {
     
 }
 
-void API::validateProduct() {
+bool API::validateProduct(int id) {
+    std::string url = "/validate/";
+    httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
+    nlohmann::json j;
+    j["hwid"] = globals::hwid;
+    j["pid"] = id;
+    auto response = client.Post(url.c_str(), headers, j.dump(), "application/json");
+    if (response->status == 200) {
+		return true;
+	}
+	return false;
+}
 
+bool API::checkLoaderVersion() {
+    std::string url = "/check_version/";
+    nlohmann::json j;
+    j["version"] = globals::version;
+    httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
+    auto response = client.Post(url.c_str(), headers, j.dump(), "application/json");
+   
+    if (response->status == 200) {
+		return true;
+	}
+    return false;
 }

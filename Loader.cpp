@@ -6,6 +6,12 @@
 #include <string>
 #include <codecvt>
 #include <locale>
+#define NOMINMAX // You have to do this for windows.h to work, else u'll get mistakes with datetime.h           
+#include <windows.h> // (without the space)    
+#pragma comment(lib, "Shell32.lib")
+#pragma comment(lib, "Advapi32.lib")
+#include <ShellAPI.h> // without space also
+#include <WinBase.h>
 
 
 std::string convert_wchar_to_string(const wchar_t* wstr) {
@@ -24,6 +30,11 @@ std::string convert_wchar_to_string(const wchar_t* wstr) {
 
 int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+    if (!globals::api.checkLoaderVersion()) {
+		MessageBoxA(NULL, "Please download the latest version of the loader.", "Error", MB_OK | MB_ICONERROR);
+		return 0;
+	}
+
     HW_PROFILE_INFO hwProfileInfo;
     if (GetCurrentHwProfile(&hwProfileInfo)) {
         globals::hwid = convert_wchar_to_string(hwProfileInfo.szHwProfileGuid);
