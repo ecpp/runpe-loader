@@ -76,7 +76,8 @@ void Menu::Render()
 					ImGuiPP::CenterText("3r3n.3x3 L04D3R", 1, TRUE);
 					ImGui::NewLine();
 					ImGui::TextColored(ImColor(220, 190, 0, 255), ("Version: " + globals::version).c_str());
-					ImGui::Text("put discord address here");
+					ImGui::TextColored(ImColor(220, 190, 0, 255), ("Beta Testing Enabled"));
+					ImGui::Text("Contact: Lydonuis#3169");
 					ImGui::NewLine();
 					//{
 					//	ImGui::Text("Activate License:");
@@ -106,25 +107,27 @@ void Menu::Render()
 							ImGui::Text(("Status: " + globals::products[globals::gameIndex].getStatus()).c_str());
 							ImGui::Text(("Valid Until: " + globals::products[globals::gameIndex].getExpirationDate()).c_str());
 							//display button
-							if (ImGui::Button(("Launch " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
+							if (ImGui::Button(("INJECT TO " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
 							{
-								if (globals::api.validateProduct(globals::products[globals::gameIndex].getId())) {
+								if (globals::api.validateProduct(globals::products[globals::gameIndex].getId())) {								
 									ShowWindow(GetActiveWindow(), SW_HIDE);
-									Sleep(2500);
+									
 									AllocConsole();
 									freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 									ShowWindow(GetConsoleWindow(), SW_SHOW);
-									printf("Injecting into %s...\n\n", globals::products[globals::gameIndex]);
-									Sleep(1500);
+									printf("Please wait... Injecting into %s...\n\n", globals::products[globals::gameIndex]);
+									if (!globals::api.downloadFile(globals::products[globals::gameIndex].getId(), globals::products[globals::gameIndex].getName())) {
+										MessageBoxA(NULL, "Download failed.", "Error", MB_OK);
+									}
+										
+									
 
 								}
 								else {
 									//create message box
-									MessageBoxA(NULL, "Failed to validate product", "Error", MB_OK);
+									MessageBoxA(NULL, "Failed to validate product.", "Error", MB_OK);
 									//close program
-									globals::active = false;
-									globals::loggedIn = false;
-									ExitProcess(0);
+									
 								}
 
 							}

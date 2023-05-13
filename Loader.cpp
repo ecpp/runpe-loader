@@ -30,10 +30,22 @@ std::string convert_wchar_to_string(const wchar_t* wstr) {
 
 int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    if (!globals::api.checkLoaderVersion()) {
-		MessageBoxA(NULL, "Please download the latest version of the loader.", "Error", MB_OK | MB_ICONERROR);
+    if (!isRunningAsAdmin()) {
+		MessageBoxA(NULL, "Please run the loader as a admin.", "Error", MB_OK | MB_ICONERROR);
 		return 0;
 	}
+
+    
+    try {
+        if (!globals::api.checkLoaderVersion()) {
+            MessageBoxA(NULL, "Please download the latest version of the loader.", "Error", MB_OK | MB_ICONERROR);
+            return 0;
+        }
+    }
+    catch (const std::exception& e) {
+        MessageBoxA(NULL, "Failed to connect to the server. Please check your internet connection.", "Error", MB_OK | MB_ICONERROR);
+        return 0;
+    }
 
     HW_PROFILE_INFO hwProfileInfo;
     if (GetCurrentHwProfile(&hwProfileInfo)) {
