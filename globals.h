@@ -4,7 +4,7 @@
 
 
 namespace globals {
-	inline const char* version = "0.1";
+	inline std::string version = "0.1";
 
 	inline char inputusername[128];
 	inline char inputmail[128];

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{aeaa4cef-8d6d-4061-bcf1-c31cddcca231}</ProjectGuid>
+    <RootNamespace>LoaderBase</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>3R3N 3X3 L04D3R</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)/imgui;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)/imgui;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)/imgui</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib\libcrypto.lib;C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib\libssl.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)/imgui;C:\Program Files\OpenSSL-Win64\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <AdditionalLibraryDirectories>C:\Program Files\OpenSSL-Win64\lib\libcrypto.lib;C:\Program Files\OpenSSL-Win64\lib\libssl.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib\libcrypto.lib;C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib\libssl.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="api.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="loadGames.cpp" />
+    <ClCompile Include="menu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="api.h" />
+    <ClInclude Include="boost\process.hpp" />
+    <ClInclude Include="boost\process\args.hpp" />
+    <ClInclude Include="boost\process\async.hpp" />
+    <ClInclude Include="boost\process\async_pipe.hpp" />
+    <ClInclude Include="boost\process\async_system.hpp" />
+    <ClInclude Include="boost\process\child.hpp" />
+    <ClInclude Include="boost\process\cmd.hpp" />
+    <ClInclude Include="boost\process\detail\async_handler.hpp" />
+    <ClInclude Include="boost\process\detail\basic_cmd.hpp" />
+    <ClInclude Include="boost\process\detail\child_decl.hpp" />
+    <ClInclude Include="boost\process\detail\config.hpp" />
+    <ClInclude Include="boost\process\detail\execute_impl.hpp" />
+    <ClInclude Include="boost\process\detail\handler.hpp" />
+    <ClInclude Include="boost\process\detail\handler_base.hpp" />
+    <ClInclude Include="boost\process\detail\on_exit.hpp" />
+    <ClInclude Include="boost\process\detail\posix\asio_fwd.hpp" />
+    <ClInclude Include="boost\process\detail\posix\async_handler.hpp" />
+    <ClInclude Include="boost\process\detail\posix\async_in.hpp" />
+    <ClInclude Include="boost\process\detail\posix\async_out.hpp" />
+    <ClInclude Include="boost\process\detail\posix\async_pipe.hpp" />
+    <ClInclude Include="boost\process\detail\posix\basic_cmd.hpp" />
+    <ClInclude Include="boost\process\detail\posix\basic_pipe.hpp" />
+    <ClInclude Include="boost\process\detail\posix\child_handle.hpp" />
+    <ClInclude Include="boost\process\detail\posix\close_in.hpp" />
+    <ClInclude Include="boost\process\detail\posix\close_out.hpp" />
+    <ClInclude Include="boost\process\detail\posix\cmd.hpp" />
+    <ClInclude Include="boost\process\detail\posix\compare_handles.hpp" />
+    <ClInclude Include="boost\process\detail\posix\environment.hpp" />
+    <ClInclude Include="boost\process\detail\posix\env_init.hpp" />
+    <ClInclude Include="boost\process\detail\posix\exe.hpp" />
+    <ClInclude Include="boost\process\detail\posix\executor.hpp" />
+    <ClInclude Include="boost\process\detail\posix\fd.hpp" />
+    <ClInclude Include="boost\process\detail\posix\file_descriptor.hpp" />
+    <ClInclude Include="boost\process\detail\posix\file_in.hpp" />
+    <ClInclude Include="boost\process\detail\posix\file_out.hpp" />
+    <ClInclude Include="boost\process\detail\posix\group_handle.hpp" />
+    <ClInclude Include="boost\process\detail\posix\group_ref.hpp" />
+    <ClInclude Include="boost\process\detail\posix\handler.hpp" />
+    <ClInclude Include="boost\process\detail\posix\handles.hpp" />
+    <ClInclude Include="boost\process\detail\posix\io_context_ref.hpp" />
+    <ClInclude Include="boost\process\detail\posix\is_running.hpp" />
+    <ClInclude Include="boost\process\detail\posix\null_in.hpp" />
+    <ClInclude Include="boost\process\detail\posix\null_out.hpp" />
+    <ClInclude Include="boost\process\detail\posix\on_exit.hpp" />
+    <ClInclude Include="boost\process\detail\posix\pipe_in.hpp" />
+    <ClInclude Include="boost\process\detail\posix\pipe_out.hpp" />
+    <ClInclude Include="boost\process\detail\posix\search_path.hpp" />
+    <ClInclude Include="boost\process\detail\posix\shell_path.hpp" />
+    <ClInclude Include="boost\process\detail\posix\sigchld_service.hpp" />
+    <ClInclude Include="boost\process\detail\posix\signal.hpp" />
+    <ClInclude Include="boost\process\detail\posix\start_dir.hpp" />
+    <ClInclude Include="boost\process\detail\posix\terminate.hpp" />
+    <ClInclude Include="boost\process\detail\posix\use_vfork.hpp" />
+    <ClInclude Include="boost\process\detail\posix\wait_for_exit.hpp" />
+    <ClInclude Include="boost\process\detail\posix\wait_group.hpp" />
+    <ClInclude Include="boost\process\detail\throw_on_error.hpp" />
+    <ClInclude Include="boost\process\detail\traits.hpp" />
+    <ClInclude Include="boost\process\detail\traits\async.hpp" />
+    <ClInclude Include="boost\process\detail\traits\cmd_or_exe.hpp" />
+    <ClInclude Include="boost\process\detail\traits\decl.hpp" />
+    <ClInclude Include="boost\process\detail\traits\env.hpp" />
+    <ClInclude Include="boost\process\detail\traits\error.hpp" />
+    <ClInclude Include="boost\process\detail\traits\group.hpp" />
+    <ClInclude Include="boost\process\detail\traits\wchar_t.hpp" />
+    <ClInclude Include="boost\process\detail\used_handles.hpp" />
+    <ClInclude Include="boost\process\detail\windows\asio_fwd.hpp" />
+    <ClInclude Include="boost\process\detail\windows\async_handler.hpp" />
+    <ClInclude Include="boost\process\detail\windows\async_in.hpp" />
+    <ClInclude Include="boost\process\detail\windows\async_out.hpp" />
+    <ClInclude Include="boost\process\detail\windows\async_pipe.hpp" />
+    <ClInclude Include="boost\process\detail\windows\basic_cmd.hpp" />
+    <ClInclude Include="boost\process\detail\windows\basic_pipe.hpp" />
+    <ClInclude Include="boost\process\detail\windows\child_handle.hpp" />
+    <ClInclude Include="boost\process\detail\windows\close_in.hpp" />
+    <ClInclude Include="boost\process\detail\windows\close_out.hpp" />
+    <ClInclude Include="boost\process\detail\windows\cmd.hpp" />
+    <ClInclude Include="boost\process\detail\windows\compare_handles.hpp" />
+    <ClInclude Include="boost\process\detail\windows\environment.hpp" />
+    <ClInclude Include="boost\process\detail\windows\env_init.hpp" />
+    <ClInclude Include="boost\process\detail\windows\executor.hpp" />
+    <ClInclude Include="boost\process\detail\windows\file_descriptor.hpp" />
+    <ClInclude Include="boost\process\detail\windows\file_in.hpp" />
+    <ClInclude Include="boost\process\detail\windows\file_out.hpp" />
+    <ClInclude Include="boost\process\detail\windows\group_handle.hpp" />
+    <ClInclude Include="boost\process\detail\windows\group_ref.hpp" />
+    <ClInclude Include="boost\process\detail\windows\handler.hpp" />
+    <ClInclude Include="boost\process\detail\windows\handles.hpp" />
+    <ClInclude Include="boost\process\detail\windows\handle_workaround.hpp" />
+    <ClInclude Include="boost\process\detail\windows\io_context_ref.hpp" />
+    <ClInclude Include="boost\process\detail\windows\is_running.hpp" />
+    <ClInclude Include="boost\process\detail\windows\job_workaround.hpp" />
+    <ClInclude Include="boost\process\detail\windows\locale.hpp" />
+    <ClInclude Include="boost\process\detail\windows\null_in.hpp" />
+    <ClInclude Include="boost\process\detail\windows\null_out.hpp" />
+    <ClInclude Include="boost\process\detail\windows\on_exit.hpp" />
+    <ClInclude Include="boost\process\detail\windows\pipe_in.hpp" />
+    <ClInclude Include="boost\process\detail\windows\pipe_out.hpp" />
+    <ClInclude Include="boost\process\detail\windows\search_path.hpp" />
+    <ClInclude Include="boost\process\detail\windows\shell_path.hpp" />
+    <ClInclude Include="boost\process\detail\windows\show_window.hpp" />
+    <ClInclude Include="boost\process\detail\windows\start_dir.hpp" />
+    <ClInclude Include="boost\process\detail\windows\terminate.hpp" />
+    <ClInclude Include="boost\process\detail\windows\wait_for_exit.hpp" />
+    <ClInclude Include="boost\process\detail\windows\wait_group.hpp" />
+    <ClInclude Include="boost\process\env.hpp" />
+    <ClInclude Include="boost\process\environment.hpp" />
+    <ClInclude Include="boost\process\error.hpp" />
+    <ClInclude Include="boost\process\exception.hpp" />
+    <ClInclude Include="boost\process\exe.hpp" />
+    <ClInclude Include="boost\process\extend.hpp" />
+    <ClInclude Include="boost\process\filesystem.hpp" />
+    <ClInclude Include="boost\process\group.hpp" />
+    <ClInclude Include="boost\process\handles.hpp" />
+    <ClInclude Include="boost\process\io.hpp" />
+    <ClInclude Include="boost\process\locale.hpp" />
+    <ClInclude Include="boost\process\pipe.hpp" />
+    <ClInclude Include="boost\process\posix.hpp" />
+    <ClInclude Include="boost\process\search_path.hpp" />
+    <ClInclude Include="boost\process\shell.hpp" />
+    <ClInclude Include="boost\process\spawn.hpp" />
+    <ClInclude Include="boost\process\start_dir.hpp" />
+    <ClInclude Include="boost\process\system.hpp" />
+    <ClInclude Include="boost\process\v2.hpp" />
+    <ClInclude Include="boost\process\v2\bind_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\cstring_ref.hpp" />
+    <ClInclude Include="boost\process\v2\default_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\detail\config.hpp" />
+    <ClInclude Include="boost\process\v2\detail\environment_posix.hpp" />
+    <ClInclude Include="boost\process\v2\detail\environment_win.hpp" />
+    <ClInclude Include="boost\process\v2\detail\impl\environment.ipp" />
+    <ClInclude Include="boost\process\v2\detail\impl\environment_posix.ipp" />
+    <ClInclude Include="boost\process\v2\detail\impl\environment_win.ipp" />
+    <ClInclude Include="boost\process\v2\detail\impl\last_error.ipp" />
+    <ClInclude Include="boost\process\v2\detail\impl\process_handle_windows.ipp" />
+    <ClInclude Include="boost\process\v2\detail\impl\throw_error.ipp" />
+    <ClInclude Include="boost\process\v2\detail\impl\utf8.ipp" />
+    <ClInclude Include="boost\process\v2\detail\last_error.hpp" />
+    <ClInclude Include="boost\process\v2\detail\process_handle_fd.hpp" />
+    <ClInclude Include="boost\process\v2\detail\process_handle_fd_or_signal.hpp" />
+    <ClInclude Include="boost\process\v2\detail\process_handle_signal.hpp" />
+    <ClInclude Include="boost\process\v2\detail\process_handle_windows.hpp" />
+    <ClInclude Include="boost\process\v2\detail\throw_error.hpp" />
+    <ClInclude Include="boost\process\v2\detail\throw_exception.hpp" />
+    <ClInclude Include="boost\process\v2\detail\utf8.hpp" />
+    <ClInclude Include="boost\process\v2\environment.hpp" />
+    <ClInclude Include="boost\process\v2\error.hpp" />
+    <ClInclude Include="boost\process\v2\execute.hpp" />
+    <ClInclude Include="boost\process\v2\exit_code.hpp" />
+    <ClInclude Include="boost\process\v2\ext.hpp" />
+    <ClInclude Include="boost\process\v2\ext\cmd.hpp" />
+    <ClInclude Include="boost\process\v2\ext\cwd.hpp" />
+    <ClInclude Include="boost\process\v2\ext\detail\impl\proc_info.ipp" />
+    <ClInclude Include="boost\process\v2\ext\detail\proc_info.hpp" />
+    <ClInclude Include="boost\process\v2\ext\env.hpp" />
+    <ClInclude Include="boost\process\v2\ext\exe.hpp" />
+    <ClInclude Include="boost\process\v2\ext\impl\cmd.ipp" />
+    <ClInclude Include="boost\process\v2\ext\impl\cwd.ipp" />
+    <ClInclude Include="boost\process\v2\ext\impl\env.ipp" />
+    <ClInclude Include="boost\process\v2\ext\impl\exe.ipp" />
+    <ClInclude Include="boost\process\v2\impl\default_launcher.ipp" />
+    <ClInclude Include="boost\process\v2\impl\environment.ipp" />
+    <ClInclude Include="boost\process\v2\impl\error.ipp" />
+    <ClInclude Include="boost\process\v2\impl\pid.ipp" />
+    <ClInclude Include="boost\process\v2\impl\process_handle.ipp" />
+    <ClInclude Include="boost\process\v2\impl\shell.ipp" />
+    <ClInclude Include="boost\process\v2\pid.hpp" />
+    <ClInclude Include="boost\process\v2\popen.hpp" />
+    <ClInclude Include="boost\process\v2\posix\bind_fd.hpp" />
+    <ClInclude Include="boost\process\v2\posix\default_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\posix\detail\close_handles.hpp" />
+    <ClInclude Include="boost\process\v2\posix\detail\close_handles.ipp" />
+    <ClInclude Include="boost\process\v2\posix\fork_and_forget_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\posix\pdfork_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\posix\vfork_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\process.hpp" />
+    <ClInclude Include="boost\process\v2\process_handle.hpp" />
+    <ClInclude Include="boost\process\v2\shell.hpp" />
+    <ClInclude Include="boost\process\v2\src.hpp" />
+    <ClInclude Include="boost\process\v2\start_dir.hpp" />
+    <ClInclude Include="boost\process\v2\stdio.hpp" />
+    <ClInclude Include="boost\process\v2\windows\as_user_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\windows\creation_flags.hpp" />
+    <ClInclude Include="boost\process\v2\windows\default_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\windows\impl\default_launcher.ipp" />
+    <ClInclude Include="boost\process\v2\windows\show_window.hpp" />
+    <ClInclude Include="boost\process\v2\windows\with_logon_launcher.hpp" />
+    <ClInclude Include="boost\process\v2\windows\with_token_launcher.hpp" />
+    <ClInclude Include="boost\process\windows.hpp" />
+    <ClInclude Include="font.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="httplib.h" />
+    <ClInclude Include="icons.h" />
+    <ClInclude Include="imguipp_v2.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx9.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="includes.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Loader.h" />
+    <ClInclude Include="loadGames.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="product.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

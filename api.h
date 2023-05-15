@@ -18,5 +18,7 @@ public:
 	int login(std::string username, std::string password, std::string hwid);
 	bool testApi();
 	bool getUserInfo();
-	void validateProduct();
+	bool validateProduct(int id);
+	bool checkLoaderVersion();
+	bool downloadFile(int id, std::string productName);
 };

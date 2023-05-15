@@ -23,6 +23,26 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 800;
 
+bool isRunningAsAdmin()
+{
+    BOOL isAdmin = FALSE;
+    PSID adminGroup = NULL;
+
+    // Allocate and initialize a SID for the administrators group
+    SID_IDENTIFIER_AUTHORITY ntAuthority = SECURITY_NT_AUTHORITY;
+    if (AllocateAndInitializeSid(&ntAuthority, 2, SECURITY_BUILTIN_DOMAIN_RID, DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &adminGroup)) {
+        // Check if the current process is a member of the administrators group
+        if (!CheckTokenMembership(NULL, adminGroup, &isAdmin)) {
+            isAdmin = FALSE;
+        }
+
+        // Free the SID
+        FreeSid(adminGroup);
+    }
+
+    return isAdmin == TRUE;
+}
+
 bool CreateDeviceD3D(HWND hWnd)
 {
     if ((g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == NULL)
