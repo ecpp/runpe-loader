@@ -289,5 +289,6 @@
     <ClInclude Include="boost\process\v2.hpp" />
     <ClInclude Include="boost\process\windows.hpp" />
     <ClInclude Include="boost\process.hpp" />
+    <ClInclude Include="pre-loader\httplib.h" />
   </ItemGroup>
 </Project>

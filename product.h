@@ -14,7 +14,7 @@ public:
 		this->expirationDate = expirationDate;
 		this->status = status;
 		//name is CSGO if id is 1
-		if (id == 0) {
+		if (id == 1) {
 			this->name = "CSGO";
 		}
 		if (status == "u") {

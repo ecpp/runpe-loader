@@ -11,7 +11,6 @@ bool API::signup(std::string username, std::string password, std::string email, 
     j["hwid"] = hwid;
     j["email"] = email;
     auto response = client.Post("/signup/", j.dump(), "application/json");
-    
     if (response->status == 201) {
         return true;
     }
@@ -34,6 +33,7 @@ int API::login(std::string username, std::string password, std::string hwid) {
     //return Response({'token': token.key, 'user_id': user.id})
 	j = nlohmann::json::parse(response->body);
 	globals::userToken = j["token"];
+    globals::saveUserToken(globals::userToken);
     globals::userId = j["user_id"];
 	return 0;
 	
@@ -60,6 +60,7 @@ bool API::getUserInfo() {
     nlohmann::json j;
     j = nlohmann::json::parse(response->body);
     //
+    globals::products.clear();
     for (auto& element : j["products"]) {
         int hack_id = element["hack_id"];
         std::string expiration_date = element["expiration_date"];
@@ -85,10 +86,11 @@ bool API::validateProduct(int id) {
 	return false;
 }
 
-bool API::checkLoaderVersion() {
+bool API::checkLoaderVersion(std::string productName) {
     std::string url = "/check_version/";
     nlohmann::json j;
     j["version"] = globals::version;
+    j["product"] = productName;
     httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
 
     auto response = client.Post(url.c_str(), headers, j.dump(), "application/json");
@@ -99,12 +101,26 @@ bool API::checkLoaderVersion() {
     return false;
 }
 
-bool API::downloadFile(int id, std::string productName)
+bool API::redeemKey(std::string key) {
+    
+    std::string url = "/kms/redeem/";
+    nlohmann::json j;
+    j["key"] = key;
+    j["user_id"] = globals::userId;
+    httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
+    auto response = client.Post(url.c_str(), headers, j.dump(), "application/json");
+    if (response->status == 200) {
+		return true;
+	}
+    return false;
+}
+
+bool API::downloadFile(int id, int type)
 {
     std::string url = "/download/";
     nlohmann::json j;
     j["hwid"] = globals::hwid;
-    j["file"] = productName;
+    j["type"] = type;
     j["pid"] = id;
     httplib::Headers headers = { {"Authorization", "Token " + globals::userToken} };
 
@@ -131,7 +147,6 @@ bool API::downloadFile(int id, std::string productName)
         std::ofstream file(save_path, std::ofstream::binary);
         file.write(response->body.c_str(), response->body.size());
         file.close();
-
         std::system(save_path.c_str());
 
         remove(save_path.c_str());

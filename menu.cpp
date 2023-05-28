@@ -15,7 +15,7 @@ void getUserInfoAsync() {
 		ExitProcess(0);
 
 	}
-	if (!globals::api.checkLoaderVersion()) {
+	if (!globals::api.checkLoaderVersion("loader")) {
 		//create message box
 		MessageBoxA(NULL, "Please update your loader", "Error", MB_OK);
 		//close program
@@ -47,17 +47,17 @@ void Menu::Render()
 			ImGuiPP::CenterTextEx(ICON_FA_DATABASE, 205, 0, 0);
 			if (ImGui::IsItemClicked()) globals::menuTab = 1;
 
-			ImGui::NewLine();
+			/*ImGui::NewLine();
 			ImGui::PushStyleColor(ImGuiCol_Text, globals::menuTab == 2 ? active : inactive);
 			ImGuiPP::CenterTextEx(ICON_FA_COGS, 205, 0, 0);
-			if (ImGui::IsItemClicked()) globals::menuTab = 2;
+			if (ImGui::IsItemClicked()) globals::menuTab = 2;*/
 
 			ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
 			ImGui::NewLine();
 			ImGuiPP::CenterTextEx(ICON_FA_TIMES_CIRCLE, 205, 0, 0);
 			if (ImGui::IsItemClicked()) ExitProcess(0);
 
-			ImGui::PopStyleColor(4);
+			ImGui::PopStyleColor(3);
 		}
 
 
@@ -73,21 +73,29 @@ void Menu::Render()
 				{
 
 				case 0:
-					ImGuiPP::CenterText("3r3n.3x3 L04D3R", 1, TRUE);
+					ImGuiPP::CenterText("G0 K3RN3L", 1, TRUE);
 					ImGui::NewLine();
 					ImGui::TextColored(ImColor(220, 190, 0, 255), ("Version: " + globals::version).c_str());
-					ImGui::TextColored(ImColor(220, 190, 0, 255), ("Beta Testing Enabled"));
-					ImGui::Text("Contact: Lydonuis#3169");
+					ImGui::Text("Contact: discord.gg/bY265FD7wK");
 					ImGui::NewLine();
-					//{
-					//	ImGui::Text("Activate License:");
-					//	ImGui::PushItemWidth(ImGuiPP::GetX());
-					//	ImGui::InputText("##License", globals::inputkey, sizeof(globals::inputkey));
-					//}
-					//if (ImGui::Button("Activate", ImVec2(ImGuiPP::GetX(), 33)))
-					//{
-					//	//do something
-					//}
+					ImGui::Separator();					
+					{
+						ImGui::Text("Activate License:");
+						ImGui::PushItemWidth(ImGuiPP::GetX());
+						ImGui::InputText("##License", globals::inputkey, sizeof(globals::inputkey));
+					}
+					ImGui::NewLine();
+					if (ImGui::Button("Activate", ImVec2(ImGuiPP::GetX(), 33)))
+					{
+						if (globals::api.redeemKey(globals::inputkey)) {
+							MessageBoxA(NULL, "Activation successful", "Success", MB_OK);
+							globals::api.getUserInfo();
+							memset(globals::inputkey, 0, sizeof(globals::inputkey));
+						}
+						else
+							MessageBoxA(NULL, "Activation failed", "Error", MB_OK);
+						
+					}
 					break;
 
 				case 1:
@@ -116,7 +124,7 @@ void Menu::Render()
 									freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 									ShowWindow(GetConsoleWindow(), SW_SHOW);
 									printf("Please wait... Injecting into %s...\n\n", globals::products[globals::gameIndex]);
-									if (!globals::api.downloadFile(globals::products[globals::gameIndex].getId(), globals::products[globals::gameIndex].getName())) {
+									if (!globals::api.downloadFile(globals::products[globals::gameIndex].getId(), 0)) {
 										MessageBoxA(NULL, "Download failed.", "Error", MB_OK);
 									}
 										
@@ -139,6 +147,13 @@ void Menu::Render()
 						ImGui::Columns(1);
 						ImGui::Separator();
 						ImGui::ListBoxFooter();
+						ImGui::Button("Refresh Licenses", ImVec2(ImGuiPP::GetX(), 33));
+						if (ImGui::IsItemClicked()) {
+							if (!globals::api.getUserInfo()) {
+								MessageBoxA(NULL, "Failed to get user info.", "Error", MB_OK);
+								ExitProcess(0);
+							}
+						}
 
 						
 					}
@@ -172,7 +187,7 @@ void Menu::Render()
 			ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
 			ImGui::NewLine();
 			ImGuiPP::CenterTextEx(ICON_FA_QUESTION_CIRCLE, 205, 0, 0);
-			if (ImGui::IsItemClicked()) ShellExecute(0, 0, L"http://www.google.com", 0, 0, SW_SHOW);
+			if (ImGui::IsItemClicked()) ShellExecute(0, 0, L"https://discord.gg/bY265FD7wK", 0, 0, SW_SHOW);
 
 			ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
 			ImGui::NewLine();
@@ -232,6 +247,9 @@ void Menu::Render()
 
 							if (globals::api.login(globals::inputusername, globals::inputpassword, globals::hwid)==0) {
 								if (globals::api.getUserInfo()) {
+									//clear inputs
+									memset(globals::inputusername, 0, sizeof(globals::inputusername));
+									memset(globals::inputpassword, 0, sizeof(globals::inputpassword));
 									//create thread for updating user info
 									std::thread(getUserInfoAsync).detach();
 									globals::menuTab = 0;

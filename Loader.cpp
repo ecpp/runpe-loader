@@ -37,7 +37,7 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     
     try {
-        if (!globals::api.checkLoaderVersion()) {
+        if (!globals::api.checkLoaderVersion("loader")) {
             MessageBoxA(NULL, "Please download the latest version of the loader.", "Error", MB_OK | MB_ICONERROR);
             return 0;
         }
@@ -56,7 +56,7 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandleA(0), 0,0,0, 0, L"set to anything", 0 };
     RegisterClassEx(&wc);
-    Window = CreateWindow(wc.lpszClassName, L"3r3n.3x3 L04D3R", WS_POPUP, 0, 0, 5, 5, 0, 0, wc.hInstance, 0);
+    Window = CreateWindow(wc.lpszClassName, L"G0 K3RN3L", WS_POPUP, 0, 0, 5, 5, 0, 0, wc.hInstance, 0);
 
     if (!CreateDeviceD3D(Window)) 
     {
@@ -122,7 +122,7 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         {   
             
             
-            ImGui::Begin("3r3n.3x3 L04D3R", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+            ImGui::Begin("G0 K3RN3L", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
             {
                 Menu::Render();
             }

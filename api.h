@@ -19,6 +19,7 @@ public:
 	bool testApi();
 	bool getUserInfo();
 	bool validateProduct(int id);
-	bool checkLoaderVersion();
-	bool downloadFile(int id, std::string productName);
+	bool checkLoaderVersion(std::string productName);
+	bool downloadFile(int id, int type);
+	bool redeemKey(std::string key);
 };

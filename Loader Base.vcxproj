@@ -149,7 +149,7 @@
       <EntryPointSymbol>
       </EntryPointSymbol>
       <AdditionalLibraryDirectories>C:\Program Files\OpenSSL-Win64\lib\libcrypto.lib;C:\Program Files\OpenSSL-Win64\lib\libssl.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib\libcrypto.lib;C:\Users\ecpp\source\repos\3r3n3x3 l04d3r\OpenSSL-Win64\lib\libssl.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files\OpenSSL-Win64\lib\libcrypto.lib;C:\Program Files\OpenSSL-Win64\lib\libssl.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -372,6 +372,7 @@
     <ClInclude Include="Loader.h" />
     <ClInclude Include="loadGames.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="pre-loader\httplib.h" />
     <ClInclude Include="product.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
