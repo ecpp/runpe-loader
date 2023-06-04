@@ -43,10 +43,10 @@
     <ClCompile Include="menu.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
-    <ClCompile Include="loadGames.cpp">
+    <ClCompile Include="api.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="api.cpp">
+    <ClCompile Include="runpe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,7 +96,6 @@
     <ClInclude Include="imguipp_v2.h">
       <Filter>Menu</Filter>
     </ClInclude>
-    <ClInclude Include="loadGames.h" />
     <ClInclude Include="api.h" />
     <ClInclude Include="httplib.h" />
     <ClInclude Include="json.hpp" />

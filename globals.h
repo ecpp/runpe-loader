@@ -4,10 +4,11 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
-
+#include <thread>
+#include <atomic>
 
 namespace globals {
-	inline std::string version = "0.11";
+	inline std::string version = "0.14";
 
 	inline char inputusername[128];
 	inline char inputmail[128];
@@ -28,7 +29,8 @@ namespace globals {
 	inline int menuTab = 3;
 	inline bool loggedIn = false;
 	inline bool active = true;
-
+	inline std::atomic<bool> downloadInProgress(false);
+	inline std::atomic<float> downloadProgress(0.0f);
 	inline bool saveUserToken(const std::string& userToken) {
 		
 		char* appDataDir = nullptr;

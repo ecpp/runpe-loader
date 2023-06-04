@@ -5,7 +5,7 @@
 #include <thread>
 
 void getUserInfoAsync() {
-	std::this_thread::sleep_for(std::chrono::minutes(10));
+	std::this_thread::sleep_for(std::chrono::minutes(2));
 	if (!globals::api.getUserInfo()) {
 		//create message box
 		MessageBoxA(NULL, "Failed to get user info", "Error", MB_OK);
@@ -96,6 +96,9 @@ void Menu::Render()
 							MessageBoxA(NULL, "Activation failed", "Error", MB_OK);
 						
 					}
+					ImGui::NewLine();
+					
+
 					break;
 
 				case 1:
@@ -115,29 +118,41 @@ void Menu::Render()
 							ImGui::Text(("Status: " + globals::products[globals::gameIndex].getStatus()).c_str());
 							ImGui::Text(("Valid Until: " + globals::products[globals::gameIndex].getExpirationDate()).c_str());
 							//display button
-							if (ImGui::Button(("INJECT TO " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
-							{
-								if (globals::api.validateProduct(globals::products[globals::gameIndex].getId())) {								
-									ShowWindow(GetActiveWindow(), SW_HIDE);
-									
-									AllocConsole();
-									freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-									ShowWindow(GetConsoleWindow(), SW_SHOW);
-									printf("Please wait... Injecting into %s...\n\n", globals::products[globals::gameIndex]);
-									if (!globals::api.downloadFile(globals::products[globals::gameIndex].getId(), 0)) {
-										MessageBoxA(NULL, "Download failed.", "Error", MB_OK);
+							if (!globals::downloadInProgress) {
+								if (ImGui::Button(("INJECT TO " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
+								{
+									if (globals::api.validateProduct(globals::products[globals::gameIndex].getId())) {
+
+										globals::downloadInProgress = true;
+										std::thread downloadThread([&]() {
+											while (globals::downloadProgress < 1.0f) {
+												globals::downloadProgress = globals::downloadProgress + 0.01f;
+												Sleep(1250);
+											}
+
+											if (!globals::api.downloadFile(globals::products[globals::gameIndex].getId(), 0)) {
+												MessageBoxA(NULL, "Download failed.", "Error", MB_OK);
+											}
+											globals::downloadInProgress = false;
+											globals::downloadProgress = 0.0f;
+											});
+										downloadThread.detach();
 									}
-										
-									
+									else {
+										//create message box
+										MessageBoxA(NULL, "Failed to validate product.", "Error", MB_OK);
+										//close program
+										ExitProcess(0);
+
+									}
 
 								}
-								else {
-									//create message box
-									MessageBoxA(NULL, "Failed to validate product.", "Error", MB_OK);
-									//close program
-									
-								}
-
+							}
+							
+							if (globals::downloadInProgress) {
+								ImGui::NewLine();
+								ImGui::ProgressBar(globals::downloadProgress, ImVec2(ImGuiPP::GetX(), 33));
+								// Add your animation code here
 							}
 
 							ImGui::NextColumn();

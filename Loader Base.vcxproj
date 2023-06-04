@@ -161,8 +161,8 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Loader.cpp" />
-    <ClCompile Include="loadGames.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="runpe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="api.h" />
@@ -370,7 +370,6 @@
     <ClInclude Include="includes.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Loader.h" />
-    <ClInclude Include="loadGames.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="pre-loader\httplib.h" />
     <ClInclude Include="product.h" />
