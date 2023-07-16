@@ -64,9 +64,13 @@ bool API::getUserInfo() {
     }
     nlohmann::json j;
     j = nlohmann::json::parse(response->body);
-    //
+    //open console and print
+    /*AllocConsole();
+    freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+    ShowWindow(GetConsoleWindow(), SW_SHOW);*//*
+    std::cout << response->body << std::endl;*/
     globals::products.clear();
-    for (auto& element : j["products"]) {
+    for (auto& element : j["filtered_products"]) {
         int hack_id = element["hack_id"];
         std::string expiration_date = element["expiration_date"];
         std::string status = element["hack"]["status"];

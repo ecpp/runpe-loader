@@ -19,7 +19,6 @@ namespace globals {
 	inline std::string userToken = "";
 	inline std::vector<Product> products;
 
-
 	inline ImVec2 window_size{ 600, 600 };
 	inline const float padding{ 10 };
 

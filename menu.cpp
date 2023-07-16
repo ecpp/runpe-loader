@@ -121,6 +121,7 @@ void Menu::Render()
 							if (!globals::downloadInProgress) {
 								if (ImGui::Button(("INJECT TO " + globals::products[globals::gameIndex].getName()).c_str(), ImVec2(ImGuiPP::GetX(), 33)))
 								{
+
 									if (globals::api.validateProduct(globals::products[globals::gameIndex].getId())) {
 
 										globals::downloadInProgress = true;
@@ -151,8 +152,11 @@ void Menu::Render()
 							
 							if (globals::downloadInProgress) {
 								ImGui::NewLine();
+								ImGui::Text("Creating custom build before downloading.");
+								ImGui::Text("This may take a while.");
 								ImGui::ProgressBar(globals::downloadProgress, ImVec2(ImGuiPP::GetX(), 33));
 								// Add your animation code here
+
 							}
 
 							ImGui::NextColumn();
